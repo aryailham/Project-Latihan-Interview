@@ -17,12 +17,15 @@ protocol PostViewModel{
 class PostDefaultViewModel: PostViewModel {
     let repository: PostRepository
     
+    var getPostStream = PublishSubject<Void>()
     var postsStream = PublishSubject<[Post]>()
     var posts: Observable<[Post]> {
         return postsStream.distinctUntilChanged()
             .asObservable()
     }
     var postRawData: [Post] = []
+    
+    private let disposeBag = DisposeBag()
     
     var error = PublishSubject<String>()
     
@@ -31,18 +34,23 @@ class PostDefaultViewModel: PostViewModel {
     }
     
     func viewDidLoad() {
+        self.setupStream()
         self.getPostsData()
     }
     
-    private func getPostsData() {
-        self.repository.fetchPost { result in
-            switch result {
-            case .success(let success):
-                self.postRawData = success
-                self.postsStream.onNext(self.postRawData)
-            case .failure(let failure):
-                self.error.onNext(failure.localizedDescription)
+    private func setupStream() {
+        getPostStream
+            .flatMap { _ in
+                self.repository.fetchPost()
             }
-        }
+            .subscribe { posts in
+                self.postsStream.onNext(posts)
+            } onError: { error in
+                self.error.onNext(error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func getPostsData() {
+        self.getPostStream.onNext(())
     }
 }
