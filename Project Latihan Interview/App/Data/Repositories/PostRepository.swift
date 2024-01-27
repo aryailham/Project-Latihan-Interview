@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol PostRepository {
-    func fetchPost(completion: @escaping ((Result<[Post], Error>) -> Void))
+    func fetchPost() -> Observable<[Post]>
 }
 
 class PostDefaultRepository {
@@ -22,17 +23,18 @@ class PostDefaultRepository {
 }
 
 extension PostDefaultRepository: PostRepository {
-    func fetchPost(completion: @escaping ((Result<[Post], Error>) -> Void)) {
-        remote.getPosts { response in
-            switch response {
-            case .success(let success):
-                let posts = success.map { post in
+    func fetchPost() ->  Observable<[Post]> {
+//        return remote.getPosts()
+//            .flatMap { postDTO in
+//                postDTO.map { post in
+//                    return post.toDomain()
+//                }
+//            }
+        return remote.getPosts()
+            .map { posts in
+                return posts.map { post in
                     post.toDomain()
                 }
-                completion(.success(posts))
-            case .failure(let failure):
-                completion(.failure(failure))
             }
-        }
     }
 }
