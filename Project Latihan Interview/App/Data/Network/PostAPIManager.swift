@@ -7,9 +7,10 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 
 protocol PostAPIManager {
-    func getPosts(completion: @escaping ((Result<[PostDTO], Error>) -> Void))
+    func getPosts() -> Observable<[PostDTO]>
 }
 
 class PostDefaultAPIManager {
@@ -19,19 +20,23 @@ class PostDefaultAPIManager {
 }
 
 extension PostDefaultAPIManager: PostAPIManager {
-    func getPosts(completion: @escaping ((Result<[PostDTO], Error>) -> Void)) {
-        AF.request(URL(string: BASE_URL + GET_POSTS)!)
-            .responseDecodable(of: [PostDTO].self) { response in
-                switch response.result {
-                case .success(let success):
-                    // send data back to repository
-                    completion(.success(success))
-                    break
-                case .failure(let failure):
-                    // send error to repository
-                    completion(.failure(failure))
-                    break
+    func getPosts() -> Observable<[PostDTO]> {
+        return Observable.create { observer in
+            AF.request(URL(string: self.BASE_URL + self.GET_POSTS)!)
+                .responseDecodable(of: [PostDTO].self) { response in
+                    switch response.result {
+                    case .success(let success):
+                        observer.onNext(success)
+                        observer.onCompleted()
+                    case .failure(let failure):
+                        // send error to repository
+                        observer.onError(failure)
+                        break
+                    }
                 }
-            }
+            return Disposables.create()
+        }
+        
+        
     }
 }
