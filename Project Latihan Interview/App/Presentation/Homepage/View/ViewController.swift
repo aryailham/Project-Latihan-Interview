@@ -16,11 +16,27 @@ final class ViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private var dataToRender: [Post] = []
+    
+    static func instantiate() -> ViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
+        
+        // repository
+        let repository = PostDefaultRepository(remote: PostDefaultAPIManager())
+        // use case
+        let useCase = PostDefaultUseCase(repository: repository)
+        // viewModel
+        let viewModel = PostDefaultViewModel(repository: repository)
+        
+        vc.viewModel = viewModel
+        return vc
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
         self.bind()
+        self.viewModel?.viewDidLoad()
     }
 
     private func setupView() {
