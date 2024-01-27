@@ -1,0 +1,6 @@
+framework module Pods_Project_Latihan_Interview_Project_Latihan_InterviewUITests {
+  umbrella header "Pods-Project Latihan Interview-Project Latihan InterviewUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
