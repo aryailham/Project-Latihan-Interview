@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol PostUseCase {
-    func fetchPosts(completion: @escaping ((Result<[Post], Error>) -> Void))
+    func fetchPosts() -> Observable<[Post]>
 }
 
 class PostDefaultUseCase {
@@ -20,14 +21,7 @@ class PostDefaultUseCase {
 }
 
 extension PostDefaultUseCase: PostUseCase {
-    func fetchPosts(completion: @escaping ((Result<[Post], Error>) -> Void)) {
-        repository.fetchPost { response in
-            switch response {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-        }
+    func fetchPosts() -> Observable<[Post]> {
+        return repository.fetchPost()
     }
 }
