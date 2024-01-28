@@ -30,3 +30,15 @@ extension PostDTO {
                     body: self.body)
     }
 }
+
+// MARK: - Mapping to Persistent storage model
+extension PostDTO {
+    func toRealmModel() -> PostDataModel {
+        let realmModel = PostDataModel()
+        realmModel.id = self.id
+        realmModel.userId = self.userId
+        realmModel.title = self.title
+        realmModel.body = self.body
+        return realmModel
+    }
+}
