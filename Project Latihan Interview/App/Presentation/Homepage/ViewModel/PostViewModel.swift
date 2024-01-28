@@ -40,6 +40,8 @@ class PostDefaultViewModel: PostViewModel {
     
     private func setupStream() {
         getPostStream
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .flatMap { _ in
                 self.repository.fetchPost()
             }
