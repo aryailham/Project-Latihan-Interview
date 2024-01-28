@@ -56,11 +56,11 @@ final class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         self.viewModel?.posts
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { post in
                 self.dataToRender = post
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.tableView.reloadData()
             }, onError: { error in
                 // TODO: - add error message
             })
