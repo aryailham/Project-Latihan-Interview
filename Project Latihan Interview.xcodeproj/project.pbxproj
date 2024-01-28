@@ -24,6 +24,8 @@
 		194AA6952B64D76600D11ED1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA6942B64D76600D11ED1 /* Post.swift */; };
 		194AA6972B64DA4400D11ED1 /* PostUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA6962B64DA4400D11ED1 /* PostUseCase.swift */; };
 		194AA6992B64DB8500D11ED1 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA6982B64DB8500D11ED1 /* PostViewModel.swift */; };
+		194AA69C2B655FF300D11ED1 /* PostPersistentStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA69B2B655FF300D11ED1 /* PostPersistentStorageManager.swift */; };
+		194AA69E2B65607A00D11ED1 /* PostDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA69D2B65607A00D11ED1 /* PostDataModel.swift */; };
 		51D996D237C7A1E38AB668DB /* Pods_Project_Latihan_InterviewTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00469F62BC7AB5886E474BDB /* Pods_Project_Latihan_InterviewTests.framework */; };
 		54BBBAE40E61F695614504C1 /* Pods_Project_Latihan_Interview_Project_Latihan_InterviewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D933BC9DC9E51B5AF6ACC3B /* Pods_Project_Latihan_Interview_Project_Latihan_InterviewUITests.framework */; };
 		5B437F871CA5BA7486C0CA2B /* Pods_Project_Latihan_Interview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB2E834E4A6F83AA55BB3B5 /* Pods_Project_Latihan_Interview.framework */; };
@@ -69,6 +71,8 @@
 		194AA6942B64D76600D11ED1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		194AA6962B64DA4400D11ED1 /* PostUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostUseCase.swift; sourceTree = "<group>"; };
 		194AA6982B64DB8500D11ED1 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		194AA69B2B655FF300D11ED1 /* PostPersistentStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPersistentStorageManager.swift; sourceTree = "<group>"; };
+		194AA69D2B65607A00D11ED1 /* PostDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataModel.swift; sourceTree = "<group>"; };
 		2D933BC9DC9E51B5AF6ACC3B /* Pods_Project_Latihan_Interview_Project_Latihan_InterviewUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Latihan_Interview_Project_Latihan_InterviewUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FB8B31DFA34D729AD65F90B /* Pods-Project Latihan Interview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Latihan Interview.debug.xcconfig"; path = "Target Support Files/Pods-Project Latihan Interview/Pods-Project Latihan Interview.debug.xcconfig"; sourceTree = "<group>"; };
 		80D473B9FF31BF37A3BF3D65 /* Pods-Project Latihan InterviewTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Latihan InterviewTests.release.xcconfig"; path = "Target Support Files/Pods-Project Latihan InterviewTests/Pods-Project Latihan InterviewTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 		194AA6852B64CCEF00D11ED1 /* PersistentStorage */ = {
 			isa = PBXGroup;
 			children = (
+				194AA69A2B655FD600D11ED1 /* DataModel */,
+				194AA69B2B655FF300D11ED1 /* PostPersistentStorageManager.swift */,
 			);
 			path = PersistentStorage;
 			sourceTree = "<group>";
@@ -286,6 +292,14 @@
 				194AA6942B64D76600D11ED1 /* Post.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		194AA69A2B655FD600D11ED1 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				194AA69D2B65607A00D11ED1 /* PostDataModel.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		B4F3FA7F6984146F33E69677 /* Frameworks */ = {
@@ -551,12 +565,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194AA69C2B655FF300D11ED1 /* PostPersistentStorageManager.swift in Sources */,
 				194AA6992B64DB8500D11ED1 /* PostViewModel.swift in Sources */,
 				194AA64E2B64C72C00D11ED1 /* ViewController.swift in Sources */,
 				194AA6972B64DA4400D11ED1 /* PostUseCase.swift in Sources */,
 				194AA64A2B64C72C00D11ED1 /* AppDelegate.swift in Sources */,
 				194AA68D2B64D15E00D11ED1 /* PostAPIManager.swift in Sources */,
 				194AA6952B64D76600D11ED1 /* Post.swift in Sources */,
+				194AA69E2B65607A00D11ED1 /* PostDataModel.swift in Sources */,
 				194AA6922B64D6B600D11ED1 /* PostRepository.swift in Sources */,
 				194AA64C2B64C72C00D11ED1 /* SceneDelegate.swift in Sources */,
 				194AA68A2B64CFBB00D11ED1 /* PostCell.swift in Sources */,

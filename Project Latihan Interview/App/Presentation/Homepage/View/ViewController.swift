@@ -22,7 +22,7 @@ final class ViewController: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
         
         // repository
-        let repository = PostDefaultRepository(remote: PostDefaultAPIManager())
+        let repository = PostDefaultRepository(remote: PostDefaultAPIManager(), local: PostRealmPersistentStorage())
         // use case
         let useCase = PostDefaultUseCase(repository: repository)
         // viewModel
@@ -40,6 +40,7 @@ final class ViewController: UIViewController {
     }
 
     private func setupView() {
+        self.title = "Post"
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.ID)

@@ -14,26 +14,23 @@ protocol PostRepository {
 
 class PostDefaultRepository {
     typealias remoteDataSource = PostAPIManager
+    typealias localDataSource = PostPersistentStorageManager
     
     private let remote: remoteDataSource
+    private let local: localDataSource
     
-    init(remote: PostAPIManager) {
+    init(remote: remoteDataSource, local: localDataSource) {
         self.remote = remote
+        self.local = local
     }
 }
 
 extension PostDefaultRepository: PostRepository {
     func fetchPost() ->  Observable<[Post]> {
-//        return remote.getPosts()
-//            .flatMap { postDTO in
-//                postDTO.map { post in
-//                    return post.toDomain()
-//                }
-//            }
         return remote.getPosts()
             .map { posts in
-                return posts.map { post in
-                    post.toDomain()
+                self.local.saveList(posts: posts).map { postDataModel in
+                    return postDataModel.toDomain()
                 }
             }
     }

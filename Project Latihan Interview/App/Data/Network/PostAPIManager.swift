@@ -29,7 +29,6 @@ extension PostDefaultAPIManager: PostAPIManager {
                         observer.onNext(success)
                         observer.onCompleted()
                     case .failure(let failure):
-                        // send error to repository
                         observer.onError(failure)
                         break
                     }
